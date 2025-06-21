@@ -4,27 +4,30 @@
   <meta charset="UTF-8" />
   <title>Login</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; }
-    form { max-width: 300px; }
-    label { display: block; margin-top: 15px; }
-    input { width: 100%; padding: 8px; margin-top: 5px; }
-    button { margin-top: 20px; padding: 10px 20px; }
-    #message { color: red; margin-top: 10px; }
+    body { font-family: Arial, sans-serif; max-width: 400px; margin: 40px auto; }
+    h1 { text-align: center; }
+    form { display: flex; flex-direction: column; }
+    label { margin-top: 15px; }
+    input { padding: 8px; }
+    button { margin-top: 25px; padding: 12px; background: #008CBA; color: white; border: none; cursor: pointer; }
+    button:hover { background: #007bb5; }
+    #message { color: red; margin-top: 15px; text-align: center; }
+    a { display: block; margin-top: 20px; text-align: center; }
   </style>
 </head>
 <body>
   <h1>Login</h1>
   <form id="loginForm">
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required />
+    <label>Email:</label>
+    <input type="email" id="email" required />
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required />
+    <label>Password:</label>
+    <input type="password" id="password" required />
 
     <button type="submit">Login</button>
     <p id="message"></p>
   </form>
-  <p>Don't have an account? <a href="signup.html">Signup here</a></p>
+  <a href="signup.html">Don't have an account? Signup here</a>
 
   <script>
     const loginForm = document.getElementById('loginForm');
@@ -32,16 +35,19 @@
       e.preventDefault();
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value.trim();
-
       const storedPassword = localStorage.getItem(email);
+
+      const message = document.getElementById('message');
+      message.innerText = '';
+
       if (!storedPassword) {
-        document.getElementById('message').innerText = 'Account does not exist!';
+        message.innerText = 'Account does not exist!';
       } else if (storedPassword === password) {
         localStorage.setItem('loggedInUser', email);
         alert('Login successful!');
         window.location.href = 'home.html';
       } else {
-        document.getElementById('message').innerText = 'Incorrect password!';
+        message.innerText = 'Incorrect password!';
       }
     });
   </script>
